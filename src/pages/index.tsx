@@ -13,19 +13,17 @@ const Home: React.FC = () => {
   useEffect(() => {
     const saveImagesToDB = async () => {
       try {
-        await Promise.all(
-          imageURLs.map(
-            (originUrl, id) =>
-              new Promise<void>((resolve, reject) => {
-                convertToDataURLviaCanvas(originUrl, (dataUrl) => {
-                  addImage
-                    .mutateAsync({id, originUrl, dataUrl})
-                    .then(() => resolve())
-                    .catch(() => reject());
-                });
-              })
-          )
-        );
+        for (let i = 0; i < imageURLs.length; i++) {
+          const originUrl = imageURLs[i];
+          await new Promise<void>((resolve, reject) => {
+            convertToDataURLviaCanvas(originUrl, (dataUrl) => {
+              addImage
+                .mutateAsync({id: i, originUrl, dataUrl})
+                .then(() => resolve())
+                .catch(() => reject());
+            });
+          });
+        }
       } catch (e) {
         setIsError(true);
       } finally {
