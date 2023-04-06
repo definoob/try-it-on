@@ -1,9 +1,9 @@
-import {Low} from 'lowdb';
-import {JSONFile} from 'lowdb/node';
+import {LowSync} from 'lowdb';
+import {JSONFileSync} from 'lowdb/node';
 import {ImageType as Image, DBSchema} from './types';
 
-const adapter = new JSONFile<DBSchema>('/tmp/data.json');
-const db = new Low(adapter);
+const adapter = new JSONFileSync<DBSchema>('/tmp/data.json');
+const db = new LowSync(adapter);
 
 db.data ||= {images: []};
 
