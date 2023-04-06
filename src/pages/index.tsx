@@ -13,7 +13,7 @@ const Home: React.FC = () => {
   useEffect(() => {
     const saveImagesToDB = async () => {
       try {
-        Promise.all(
+        await Promise.all(
           imageURLs.map(
             (originUrl, id) =>
               new Promise<void>((resolve, reject) => {
